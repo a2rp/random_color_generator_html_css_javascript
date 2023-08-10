@@ -1,0 +1,43 @@
+*,
+::before,
+::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12px;
+}
+
+.container {
+  background-color: aliceblue;
+  min-height: 100vh;
+  padding: 15px;
+}
+.container .heading {
+  text-decoration: underline;
+}
+.container .contentContainer {
+  margin-top: 50px;
+}
+.container .contentContainer .generateValues {
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+}
+.container .contentContainer .generateValues .generateButton {
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+.container .contentContainer .generateValues .generateButton:hover {
+  background-color: #111;
+}
+.container .contentContainer .generateValues .valuesContainer {
+  margin-top: 15px;
+  line-height: 21px;
+}/*# sourceMappingURL=style.css.map */
