@@ -1,29 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>a2rp: Random Color Generator</title>
-        <link rel="stylesheet" href="style.css" />
-        <script src="script.js" defer></script>
-    </head>
-    <body>
-        <div class="container">
-            <div class="heading">a2rp: Random Color Generator</div>
-
-            <div class="contentContainer">
-                <div class="generateValues">
-                    <div class="generateButton">
-                        Click here to generate random colors
-                    </div>
-                    <div class="valuesContainer">
-                        <div class="hexadecimal"></div>
-                        <div class="rgb"></div>
-                        <div class="rgba"></div>
-                        <div class="hsl"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="description" content="Generate a random color and view its Hex, RGB, RGBA, and HSL values." />
+  <meta property="og:title" content="Random Color Generator" />
+  <meta property="og:description" content="Generate a random color and copy its CSS values." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://a2rp.github.io/random_color_generator_html_css_javascript/" />
+  <meta property="og:image" content="https://a2rp.github.io/random_color_generator_html_css_javascript/preview.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://a2rp.github.io/random_color_generator_html_css_javascript/preview.png" />
+  <link rel="icon" href="public/favicon.ico" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+  <title>Random Color Generator | Ashish Ranjan</title>
+</head>
+<body>
+  <header class="siteHeader">
+    <div class="headerInner">
+      <a class="brand" href="#top"><img src="public/logo.png" alt="" /><span><small>FRONTEND TOOL</small><strong>Random Color Generator</strong></span></a>
+      <a class="sourceLink" href="https://github.com/a2rp/random_color_generator_html_css_javascript" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">⌘</span> Source</a>
+    </div>
+  </header>
+  <main class="pageContent" id="top">
+    <section class="intro">
+      <p class="eyebrow">COLOR PLAYGROUND</p>
+      <h1>Find a color.<br /><span>Copy its values.</span></h1>
+      <p class="introText">Generate a fresh color and explore the CSS formats you need for your next interface.</p>
+    </section>
+    <section class="colorTool" aria-labelledby="toolTitle">
+      <div class="toolTop"><div><p class="eyebrow">CURRENT COLOR</p><h2 id="toolTitle">Your palette starter</h2></div><button class="generateButton" type="button"><span aria-hidden="true">✦</span> Generate color</button></div>
+      <div class="colorPreview" aria-live="polite"><div class="colorSwatch"></div><div class="colorName">Generate a color to begin</div></div>
+      <div class="valuesContainer">
+        <div class="valueCard"><span class="valueLabel">HEX</span><strong class="hexadecimal"></strong><button class="copyButton" data-copy-target="hexadecimal" type="button" aria-label="Copy Hex value">Copy</button></div>
+        <div class="valueCard"><span class="valueLabel">RGB</span><strong class="rgb"></strong><button class="copyButton" data-copy-target="rgb" type="button" aria-label="Copy RGB value">Copy</button></div>
+        <div class="valueCard"><span class="valueLabel">RGBA</span><strong class="rgba"></strong><button class="copyButton" data-copy-target="rgba" type="button" aria-label="Copy RGBA value">Copy</button></div>
+        <div class="valueCard"><span class="valueLabel">HSL</span><strong class="hsl"></strong><button class="copyButton" data-copy-target="hsl" type="button" aria-label="Copy HSL value">Copy</button></div>
+      </div>
+    </section>
+  </main>
+  <footer class="siteFooter">
+    <p>Copyright &copy; <span class="currentYear"></span> <a href="https://www.ashishranjan.net" target="_blank" rel="noopener noreferrer">Ashish Ranjan</a></p>
+    <div class="footerLinks" aria-label="Social and support links">
+      <a href="https://www.ashishranjan.net/" aria-label="Portfolio" title="Portfolio" target="_blank" rel="noopener noreferrer">⌂</a>
+      <a href="https://github.com/a2rp" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener noreferrer">◉</a>
+      <a href="https://codepen.io/ash1198" aria-label="CodePen" title="CodePen" target="_blank" rel="noopener noreferrer">◌</a>
+      <a href="https://www.linkedin.com/in/aashishranjan" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener noreferrer">in</a>
+      <a href="https://www.facebook.com/theash.ashish/" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+      <a href="https://www.youtube.com/@ashishranjan-ashz?sub_confirmation=1" aria-label="YouTube" title="YouTube" target="_blank" rel="noopener noreferrer">▶</a>
+      <a href="https://a2rp-donation-page.netlify.app/" aria-label="Support" title="Support" target="_blank" rel="noopener noreferrer">♡</a>
+      <a href="https://buymeacoffee.com/a2rp" aria-label="Buy Me a Coffee" title="Buy Me a Coffee" target="_blank" rel="noopener noreferrer">☕</a>
+      <a href="https://patreon.com/a2rp" aria-label="Patreon" title="Patreon" target="_blank" rel="noopener noreferrer">★</a>
+    </div>
+  </footer>
+  <button class="scrollTop" type="button" aria-label="Scroll to top">↑</button>
+</body>
 </html>

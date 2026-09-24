@@ -1,88 +1,64 @@
-window.onload = () => {
-    const getRandomColor = () => {
-        const availableCharacters = '0123456789ABCDEF';
-        const availableCharacterLength = availableCharacters.length;
+document.addEventListener("DOMContentLoaded", () => {
+  const generateButton = document.querySelector(".generateButton");
+  const colorTool = document.querySelector(".colorTool");
+  const colorSwatch = document.querySelector(".colorSwatch");
+  const colorName = document.querySelector(".colorName");
+  const scrollTop = document.querySelector(".scrollTop");
+  const year = document.querySelector(".currentYear");
 
-        let color = '#';
+  const getRandomColor = () => {
+    const characters = "0123456789ABCDEF";
+    return "#" + Array.from({ length: 6 }, () => characters[Math.floor(Math.random() * characters.length)]).join("");
+  };
 
-        for (let i = 0; i < 6; i++) {
-            color += availableCharacters[Math.floor(Math.random() * availableCharacterLength)];
-        }
+  const hexToRGB = (hex) => {
+    const values = hex.match(/[a-f\d]{2}/gi).map((value) => parseInt(value, 16));
+    return `rgb(${values.join(", ")})`;
+  };
 
-        return color;
-    }
+  const hexToRGBA = (hex, alpha = 1) => {
+    const values = hex.match(/[a-f\d]{2}/gi).map((value) => parseInt(value, 16));
+    return `rgba(${values.join(", ")}, ${alpha})`;
+  };
 
-    function hexToRGB(hex) {
-        let red = 0, green = 0, blue = 0;
+  const hexToHSL = (hex) => {
+    const [red, green, blue] = hex.match(/[a-f\d]{2}/gi).map((value) => parseInt(value, 16) / 255);
+    const max = Math.max(red, green, blue);
+    const min = Math.min(red, green, blue);
+    const lightness = (max + min) / 2;
+    if (max === min) return `hsl(0, 0%, ${Math.round(lightness * 100)}%)`;
+    const difference = max - min;
+    const saturation = lightness > 0.5 ? difference / (2 - max - min) : difference / (max + min);
+    let hue;
+    if (max === red) hue = (green - blue) / difference + (green < blue ? 6 : 0);
+    else if (max === green) hue = (blue - red) / difference + 2;
+    else hue = (red - green) / difference + 4;
+    hue /= 6;
+    return `hsl(${Math.round(hue * 360)}, ${Math.round(saturation * 100)}%, ${Math.round(lightness * 100)}%)`;
+  };
 
-        if (hex.length == 4) { // 3 digits
-            red = "0x" + hex[1] + hex[1];
-            green = "0x" + hex[2] + hex[2];
-            blue = "0x" + hex[3] + hex[3];
-        } else if (hex.length == 7) { // 6 digits
-            red = "0x" + hex[1] + hex[2];
-            green = "0x" + hex[3] + hex[4];
-            blue = "0x" + hex[5] + hex[6];
-        }
+  const generateColor = () => {
+    const hex = getRandomColor();
+    const values = { hexadecimal: `Hexadecimal: ${hex}`, rgb: `RGB: ${hexToRGB(hex)}`, rgba: `RGBA: ${hexToRGBA(hex)}`, hsl: `HSL: ${hexToHSL(hex)}` };
+    Object.entries(values).forEach(([key, value]) => { document.querySelector(`.${key}`).textContent = value; });
+    colorTool.style.setProperty("--accent", hex);
+    colorSwatch.style.backgroundColor = hex;
+    colorName.textContent = hex;
+  };
 
-        return "rgb(" + +red + ", " + +green + ", " + +blue + ")";
-    }
-
-    const hexToRGBA = (hex, alpha = 1) => {
-        const r = parseInt(hex.slice(1, 3), 16);
-        const g = parseInt(hex.slice(3, 5), 16);
-        const b = parseInt(hex.slice(5, 7), 16);
-
-        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    }
-
-    const hexToCssHsl = (hex, valuesOnly = false) => {
-        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        let red = parseInt(result[1], 16);
-        let green = parseInt(result[2], 16);
-        let blue = parseInt(result[3], 16);
-        let cssString = '';
-        red /= 255, green /= 255, blue /= 255;
-        const max = Math.max(red, green, blue);
-        const min = Math.min(red, green, blue);
-        let hue, saturation, lightness = (max + min) / 2;
-        if (max == min) {
-            hue = saturation = 0; // achromatic
-        } else {
-            const difference = max - min;
-            saturation = lightness > 0.5 ? difference / (2 - max - min) : difference / (max + min);
-            switch (max) {
-                case red:
-                    hue = (green - blue) / difference + (green < blue ? 6 : 0);
-                    break;
-                case green:
-                    hue = (blue - red) / difference + 2;
-                    break;
-                case blue:
-                    hue = (red - green) / difference + 4;
-                    break;
-            }
-            hue /= 6;
-        }
-
-        hue = Math.round(hue * 360);
-        saturation = Math.round(saturation * 100);
-        lightness = Math.round(lightness * 100);
-
-        cssString = hue + ',' + saturation + '%,' + lightness + '%';
-        cssString = !valuesOnly ? 'hsl(' + cssString + ')' : cssString;
-
-        return cssString;
-    }
-
-    document.querySelector(".generateButton").addEventListener("click", () => {
-        const randomColor = getRandomColor();
-        document.querySelector(".hexadecimal").innerText = "Hexadecimal: " + randomColor;
-        document.querySelector(".rgb").innerText = "RGB: " + hexToRGB(randomColor);
-        document.querySelector(".rgba").innerText = "RGBA: " + hexToRGBA(randomColor);
-        document.querySelector(".hsl").innerText = "HSL: " + hexToCssHsl(randomColor);
-        document.querySelector(".generateValues").style.cssText = `background-color: ${randomColor};`;
+  document.querySelectorAll(".copyButton").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const value = document.querySelector(`.${button.dataset.copyTarget}`).textContent.split(": ").slice(1).join(": ");
+      await navigator.clipboard.writeText(value);
+      const originalText = button.textContent;
+      button.textContent = "Copied";
+      setTimeout(() => { button.textContent = originalText; }, 1200);
     });
-    document.querySelector(".generateButton").click();
-};
+  });
 
+  generateButton.addEventListener("click", generateColor);
+  year.textContent = new Date().getFullYear();
+  window.addEventListener("scroll", () => scrollTop.classList.toggle("visible", window.scrollY > 320), { passive: true });
+  scrollTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  generateColor();
+});
