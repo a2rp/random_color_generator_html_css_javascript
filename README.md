@@ -15,7 +15,7 @@ HTML, CSS, Sass source, and vanilla JavaScript.
 
 ## Run locally
 
-Open `index.html` in a browser, or serve the folder with any static file server.
+Open `index.html` in a browser, or serve the folder with any static file server. Use a local server if the browser blocks clipboard access from a `file://` page.
 
 ## Deployment
 

@@ -49,9 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".copyButton").forEach((button) => {
     button.addEventListener("click", async () => {
       const value = document.querySelector(`.${button.dataset.copyTarget}`).textContent.split(": ").slice(1).join(": ");
-      await navigator.clipboard.writeText(value);
       const originalText = button.textContent;
-      button.textContent = "Copied";
+      try {
+        await navigator.clipboard.writeText(value);
+        button.textContent = "Copied";
+      } catch {
+        button.textContent = "Copy unavailable";
+      }
       setTimeout(() => { button.textContent = originalText; }, 1200);
     });
   });
